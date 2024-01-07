@@ -7,3 +7,4 @@
 #   all-features: false
 
 -e file:.
+ruff==0.1.11
