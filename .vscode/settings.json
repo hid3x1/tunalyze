@@ -1,0 +1,31 @@
+{
+  "editor.rulers": [80, 88],
+  "[python]": {
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": false,
+    "editor.formatOnType": false,
+    "editor.formatOnSaveMode": "file",
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.ruff": "explicit",
+      "source.organizeImports.ruff": "explicit"
+    }
+  },
+  "ruff.lint.args": [],
+  "ruff.format.args": [],
+  "ruff.path": ["./tunalyze"],
+  "ruff.interpreter": ["./tunalyze"],
+  "ruff.importStrategy": "fromEnvironment",
+  "ruff.lint.run": "onType",
+  "ruff.enable": true,
+  "ruff.organizeImports": true,
+  "ruff.fixAll": true,
+  "ruff.codeAction.fixViolation": {
+    "enable": true
+  },
+  "ruff.codeAction.disableRuleComment": {
+    "enable": true
+  },
+  "ruff.showNotifications": "always",
+  "ruff.trace.server": "off"
+}
