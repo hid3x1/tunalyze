@@ -27,6 +27,7 @@ all = { chain = ["format", "lint"] }
 target-version = "py312"
 select = ["ALL"]
 exclude = [".venv", "venv", "__pycache__", ".git"]
+ignore = ["COM812", "ISC001"]
 line-length = 88
 indent-width = 4
 
