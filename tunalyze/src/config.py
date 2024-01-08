@@ -6,10 +6,23 @@ from dotenv import load_dotenv
 
 
 class Config:
-    """Class for loading configuration settings from environment variables."""
+    """Singleton class for loading configuration settings from environment variables."""
 
-    def __init__(self) -> None:
-        """Initializes the class and loads environment variables."""
+    _instance = None
+
+    def __new__(cls) -> "Config":
+        """Create a new instance of Config if it doesn't exist, or return the existing instance.
+
+        Returns:
+            Config: The singleton instance of the Config class.
+        """
+        if cls._instance is None:
+            cls._instance = super().__new__(cls)
+            cls._instance.load()
+        return cls._instance
+
+    def load(self) -> None:
+        """Loads environment variables. This method is intended for internal use."""
         load_dotenv(verbose=True)
         self._client_id = os.getenv("SPOTIFY_CLIENT_ID")
         self._client_secret = os.getenv("SPOTIFY_CLIENT_SECRET")
