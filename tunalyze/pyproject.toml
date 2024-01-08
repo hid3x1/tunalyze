@@ -1,6 +1,6 @@
 [project]
 name = "tunalyze"
-version = "0.1.1"
+version = "0.1.2"
 description = "About An innovative music analysis tool leveraging Spotify API to provide in-depth insights into track attributes for genre trends, era evolution, and mood-based music exploration. Ideal for music enthusiasts, producers, and marketers seeking data-driven inspiration and strategic decision-making."
 authors = [{ name = "hid3xxx", email = "" }]
 dependencies = []
@@ -22,6 +22,7 @@ dev-dependencies = ["ruff>=0.1.11"]
 format = "ruff format src"
 lint = "ruff check src --fix"
 all = { chain = ["format", "lint"] }
+update-version = "../scripts/update_version.sh"
 
 [tool.ruff]
 target-version = "py312"
