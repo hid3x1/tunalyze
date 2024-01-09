@@ -1,4 +1,6 @@
 import pytest
+from spotipy.exceptions import SpotifyException
+from spotipy.oauth2 import SpotifyOauthError
 
 from src.spotify.search import SpotifySearch, SpotifySearchFactory
 from src.spotify_client import SpotifyClient
@@ -20,6 +22,10 @@ def mock_spotify_client(mocker):
     mock = mocker.patch("your_module.SpotifyClient", autospec=True)
     mock_instance = mock.return_value
     mock_instance.sp.search.return_value = {"results": "mock results"}
+    mock_instance.sp.search.side_effect = [
+        SpotifyException("Error"),
+        SpotifyOauthError("Auth Error"),
+    ]
     return mock_instance
 
 
@@ -61,6 +67,26 @@ def test_search_method(mock_spotify_client):
     mock_spotify_client.sp.search.assert_called_once_with(
         q=VALID_QUERY, limit=VALID_LIMIT, type=VALID_SEARCH_TYPE, market=VALID_MARKET
     )
+
+
+def test_search_method_handles_exceptions(mock_spotify_client):
+    """Test the search method of SpotifySearch handles exceptions correctly."""
+    search = SpotifySearch(VALID_QUERY, VALID_SEARCH_TYPE, VALID_LIMIT, VALID_MARKET)
+
+    # Testing SpotifyException handling
+    result = search.search()
+    assert (
+        "error" in result
+    )  # Replace this with the actual structure of the error response
+
+    # Reset mock to test SpotifyOAuthError
+    mock_spotify_client.sp.search.side_effect = SpotifyOauthError("Auth Error")
+
+    # Testing SpotifyOAuthError handling
+    result = search.search()
+    assert (
+        "error" in result
+    )  # Replace this with the actual structure of the error response
 
 
 # Test the __str__ method

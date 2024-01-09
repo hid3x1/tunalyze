@@ -7,6 +7,9 @@ from types import TracebackType
 from typing import Any
 
 from spotify_client import SpotifyClient
+from spotify_error_handler import SpotifyErrorHandler
+from spotipy.exceptions import SpotifyException
+from spotipy.oauth2 import SpotifyOauthError
 
 
 class SpotifySearch:
@@ -75,11 +78,17 @@ class SpotifySearch:
         """Perform the search query using the Spotify API.
 
         Returns:
-            dict[str, Any]: The search results returned by the Spotify API.
+            dict[str, Any]: The search results returned by the Spotify API  or a dict with an error message.
         """
-        return self.client.sp.search(
-            q=self.query, limit=self.limit, type=self.search_type, market=self.market
-        )
+        try:
+            return self.client.sp.search(
+                q=self.query,
+                limit=self.limit,
+                type=self.search_type,
+                market=self.market,
+            )
+        except (SpotifyException, SpotifyOauthError) as e:
+            return SpotifyErrorHandler.handle_error(e)
 
     def __str__(self) -> str:
         """Return the string representation of the SpotifySearch object.
@@ -345,4 +354,7 @@ class SpotifySearchFactory:
 if __name__ == "__main__":
     with SpotifySearchFactory.artist_search("New", 1) as artist_search:
         artist_results = artist_search.search()
-        print(artist_results)  # noqa: T201
+        if "error" in artist_results:
+            print(artist_results["error"])  # noqa: T201
+        else:
+            print(artist_results)  # noqa: T201

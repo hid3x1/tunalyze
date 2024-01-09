@@ -1,6 +1,6 @@
 [project]
 name = "tunalyze"
-version = "0.1.9"
+version = "0.1.10"
 description = "About An innovative music analysis tool leveraging Spotify API to provide in-depth insights into track attributes for genre trends, era evolution, and mood-based music exploration. Ideal for music enthusiasts, producers, and marketers seeking data-driven inspiration and strategic decision-making."
 authors = [{ name = "hid3xxx", email = "" }]
 dependencies = ["python-dotenv>=1.0.0", "spotipy>=2.23.0"]
