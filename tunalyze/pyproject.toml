@@ -1,6 +1,6 @@
 [project]
 name = "tunalyze"
-version = "0.1.7"
+version = "0.1.10"
 description = "About An innovative music analysis tool leveraging Spotify API to provide in-depth insights into track attributes for genre trends, era evolution, and mood-based music exploration. Ideal for music enthusiasts, producers, and marketers seeking data-driven inspiration and strategic decision-making."
 authors = [{ name = "hid3xxx", email = "" }]
 dependencies = ["python-dotenv>=1.0.0", "spotipy>=2.23.0"]
@@ -29,7 +29,7 @@ update-version = "../scripts/update_version.sh"
 target-version = "py312"
 select = ["ALL"]
 exclude = [".venv", "venv", "__pycache__", ".git"]
-ignore = ["COM812", "ISC001", "ANN101", "E501"]
+ignore = ["COM812", "ISC001", "ANN101", "E501", "EXE002"]
 line-length = 88
 indent-width = 4
 
