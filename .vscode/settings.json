@@ -1,5 +1,8 @@
 {
-  "editor.rulers": [80, 88],
+  "editor.rulers": [
+    80,
+    88
+  ],
   "[python]": {
     "editor.formatOnSave": true,
     "editor.formatOnPaste": false,
@@ -12,13 +15,19 @@
     }
   },
   "ruff.lint.args": [],
-  "ruff.format.args": [],
-  "ruff.path": ["./tunalyze"],
-  "ruff.interpreter": ["./tunalyze"],
+  "ruff.format.args": [
+    "--config=../tunalyze/pyproject.toml"
+  ],
+  // "ruff.path": [
+  //   ""
+  // ],
+  // "ruff.interpreter": [
+  //   ""
+  // ],
   "ruff.importStrategy": "fromEnvironment",
   "ruff.lint.run": "onType",
   "ruff.enable": true,
-  "ruff.organizeImports": true,
+  "ruff.organizeImports": false,
   "ruff.fixAll": true,
   "ruff.codeAction.fixViolation": {
     "enable": true
