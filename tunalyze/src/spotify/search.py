@@ -2,17 +2,16 @@
 
 It uses the Spotify API to perform search queries for artists, albums, tracks, etc.
 """
-
-from types import TracebackType
 from typing import Any
 
-from spotify_client import SpotifyClient
-from spotify_error_handler import SpotifyErrorHandler
 from spotipy.exceptions import SpotifyException
 from spotipy.oauth2 import SpotifyOauthError
 
+from src.spotify.api_base import SpotifyAPIBase
+from src.spotify.error_handler import SpotifyErrorHandler
 
-class SpotifySearch:
+
+class SpotifySearch(SpotifyAPIBase):
     """SpotifySearch is a class for performing search queries using the Spotify API.
 
     Attributes:
@@ -42,37 +41,19 @@ class SpotifySearch:
         Raises:
             ValueError: If the limit is outside the range of _MIN_LIMIT to _MAX_LIMIT.
         """
-        if not self._MIN_LIMIT <= limit <= self._MAX_LIMIT:
-            raise ValueError(self._LIMIT_ERROR_MESSAGE)
-
+        super().__init__()
         self.query = query
         self.search_type = search_type
         self.limit = limit
         self.market = market
 
+        if not self._MIN_LIMIT <= limit <= self._MAX_LIMIT:
+            raise ValueError(self._LIMIT_ERROR_MESSAGE)
+
     def __enter__(self) -> "SpotifySearch":
-        """Enter the runtime context related to this object.
-
-        Returns:
-            SpotifySearch: The SpotifySearch object itself.
-        """
-        self.client = SpotifyClient()
+        """Reinitialize the client upon entering a context and return SpotifySearch instance."""
+        super().__enter__()
         return self
-
-    def __exit__(
-        self,
-        exc_type: type[BaseException] | None,
-        exc_value: BaseException | None,
-        traceback: TracebackType | None,
-    ) -> None:
-        """Exit the runtime context related to this object.
-
-        Args:
-            exc_type (type[BaseException] | None): The exception type if raised.
-            exc_value (BaseException | None): The exception value if raised.
-            traceback (TracebackType | None): The traceback information if an exception was raised.
-        """
-        del self.client
 
     def search(self) -> dict[str, Any]:
         """Perform the search query using the Spotify API.
