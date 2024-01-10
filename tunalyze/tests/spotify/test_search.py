@@ -19,7 +19,7 @@ INVALID_MARKET = 123  # An invalid market type for testing
 @pytest.fixture()
 def mock_spotify_client(mocker):
     """A pytest fixture that creates a mock SpotifyClient."""
-    mock = mocker.patch("your_module.SpotifyClient", autospec=True)
+    mock = mocker.patch("src.spotify_client.SpotifyClient", autospec=True)
     mock_instance = mock.return_value
     mock_instance.sp.search.return_value = {"results": "mock results"}
     mock_instance.sp.search.side_effect = [
@@ -55,7 +55,8 @@ def test_spotify_search_context_manager(mock_spotify_client):
     ) as search:
         assert isinstance(search.client, SpotifyClient)
     # Test if client is deleted after exiting the context
-    assert search.client is None
+    with pytest.raises(AttributeError):
+        _ = search.client
 
 
 # Test the search method
