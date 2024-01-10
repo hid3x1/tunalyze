@@ -4,11 +4,11 @@ It uses the Spotify API to perform search queries for artists, albums, tracks, e
 """
 from typing import Any
 
-from spotify_error_handler import SpotifyErrorHandler
 from spotipy.exceptions import SpotifyException
 from spotipy.oauth2 import SpotifyOauthError
 
-from .api_base import SpotifyAPIBase
+from src.spotify.api_base import SpotifyAPIBase
+from src.spotify.error_handler import SpotifyErrorHandler
 
 
 class SpotifySearch(SpotifyAPIBase):

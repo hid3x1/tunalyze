@@ -7,7 +7,7 @@ basic context management.
 
 from types import TracebackType
 
-from spotify_client import SpotifyClient
+from src.spotify.client import SpotifyClient
 
 
 class SpotifyAPIBase:

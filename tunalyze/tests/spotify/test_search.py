@@ -2,8 +2,8 @@ import pytest
 from spotipy.exceptions import SpotifyException
 from spotipy.oauth2 import SpotifyOauthError
 
+from src.spotify.client import SpotifyClient
 from src.spotify.search import SpotifySearch, SpotifySearchFactory
-from src.spotify_client import SpotifyClient
 
 # Constants for testing
 VALID_QUERY = "test query"
@@ -19,7 +19,7 @@ INVALID_MARKET = 123  # An invalid market type for testing
 @pytest.fixture()
 def mock_spotify_client(mocker):
     """A pytest fixture that creates a mock SpotifyClient."""
-    mock = mocker.patch("src.spotify_client.SpotifyClient", autospec=True)
+    mock = mocker.patch("src.spotify.client.SpotifyClient", autospec=True)
     mock_instance = mock.return_value
     mock_instance.sp.search.return_value = {"results": "mock results"}
     mock_instance.sp.search.side_effect = [

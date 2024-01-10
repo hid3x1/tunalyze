@@ -1,13 +1,13 @@
 import pytest
 
 from src.spotify.api_base import SpotifyAPIBase
-from src.spotify_client import SpotifyClient
+from src.spotify.client import SpotifyClient
 
 
 @pytest.fixture()
 def api_base(mocker):
     """Fixture to create a SpotifyAPIBase instance with a mocked SpotifyClient."""
-    mocker.patch("spotify_api_base.SpotifyClient")
+    mocker.patch("src.spotify.client.SpotifyClient")
     return SpotifyAPIBase()
 
 
