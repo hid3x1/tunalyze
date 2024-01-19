@@ -91,3 +91,32 @@ class SpotifyTrackFeatures(SpotifyAPIBase):
             str: An official string representation of the SpotifyTrackFeatures object.
         """
         return f"{self.__class__.__name__}()"
+
+
+# example usage
+if __name__ == "__main__":
+    from src.spotify.csv_handler import CSVHandler
+    from src.spotify.data_processor import AudioFeaturesProcessor
+
+    track_uris = [
+        "spotify:track:0YTM7bCx451c6LQbkddy4Q",
+        "spotify:track:3wT58LylGS5wfXLBWRsMaZ",
+        "spotify:track:1VoTe7qVyqyMNLgZpQeugO",
+        "spotify:track:7Fe2z1doVotACIjPuO0wQI",
+        "spotify:track:08c3tqCZN3PQcLA5VNkXt9",
+        "spotify:track:3UyBvmAK2MjkCpuJtYzQ40",
+        "spotify:track:1hAloWiinXLPQUJxrJReb1",
+        "spotify:track:62q2gPY4OnQCGnw7T4JWg1",
+        "spotify:track:5stUI9U3VGp2j4sbqJEiVI",
+        "spotify:track:5m2m2FUgFbIGQkl9sEoBi4",
+    ]
+
+    track_features = SpotifyTrackFeatures()
+    raw_features = track_features.fetch_audio_features(track_uris)
+
+    processor = AudioFeaturesProcessor()
+    structured_data = processor.process_data({"audio_features": raw_features})
+
+    csv_handler = CSVHandler("spotify_data")
+    spotify_data = csv_handler.array_to_dataframe(structured_data)
+    csv_handler.export_to_csv(spotify_data)
